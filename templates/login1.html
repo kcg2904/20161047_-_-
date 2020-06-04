@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Da Chaeum - 로그인</title>
+
+  </head>
+
+<body>
+
+<nav>
+<div >
+<form  onSubmit="logincall();return false" action="/new"  method="GET">
+  <div >
+    <label  >ID</label>
+    <div>
+      <input type="id" class="form-control" id="in3" placeholder="ID"  required autofocus>
+    </div>
+  </div>
+  <div >
+    <label for="inputPassword3" >비밀번호</label>
+    <div >
+      <input type="password" id="inputPassword3" placeholder="Password" required autofocus>
+    </div>
+  </div>
+<br>
+  <div >
+    <div >
+      <button type="submit">로그인</button>
+      <button type="submit"onclick="location.href='/new'">새로만들기</button>
+    </div>
+  </div>
+</form>
+</div>
+</nav>
+</body>
+</html>
