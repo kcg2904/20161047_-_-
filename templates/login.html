@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<body>
-
+{% extends "layout.html" %} 
+{% block title %}로그인 페이지{% endblock %} 
+{% block head %} 
+    {{ super() }} 
+{% endblock %} 
+{% block content %} 
 <h2>KIT 웹앱 프로그래밍</h2>
 
 <form action="/method" method="POST">
@@ -10,6 +12,5 @@
   <label for="lname">이름:</label><br>
   <input type="text" id="name" name="name"><br><br>
   <input type="submit" value="확인">
-</form> 
-</body>
-</html>
+</form>  
+{% endblock %}
