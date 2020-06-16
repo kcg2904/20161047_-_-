@@ -112,6 +112,4 @@ def method():
             f.write("%s,%s" % (id, name))
         return "POST 이다. 학번은:{} 이름은: {}".format(id, name)
 if __name__ == '__main__':
-    #with app.test_request_context():
-    #        print(url_for('daum'))
     app.run(debug=True)
