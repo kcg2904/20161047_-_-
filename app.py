@@ -42,28 +42,23 @@ def join():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login1.html')
+        return render_template('login.html')
     else:
         id = request.form['id']
         pw = request.form['pw']
         ret = dbdb.select_user(id, pw)
-        print(ret)
  # id와 pw가 임의로 정한 값이랑 비교 해서 맞으면 맞다 틀리면 틀리다 
         if ret != None: 
         
             session['user'] = id 
-            return ''' 
-            <script> alert("안녕하세요~ {}님");
-            location.href="/form" 
-            </script> 
-            '''.format(ret[2]) 
+            return redirect(url_for('index'))
         else: 
-            return "아이디 또는 패스워드를 확인 하세요."
+            return redirect(url_for('login'))
 # 로그아웃(session제거)
 @app.route('/logout')
 def logout():
     session.pop('user', None)
-    return redirect(url_for('form'))
+    return redirect(url_for('index'))
 
 # 로그인 사용자만 접근 가능으로 만듬
 @app.route('/form')
@@ -84,10 +79,10 @@ def form():
 
 @app.route('/getinfo')
 def getinfo():
-    ret = dbdb.select_all()
-    print(ret)
-    return render_template('getinfo.html', data=ret)
-    #return "번호 : {}, 이름 : {}".format(ret[0], ret[1])
+    if 'user' in session:
+        ret = dbdb.select_all()
+        return render_template('getinfo.html', data=ret)
+    return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def page_not_found(error):
