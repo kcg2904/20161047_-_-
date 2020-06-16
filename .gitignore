@@ -2,7 +2,10 @@
 # Created by https://www.gitignore.io/api/code,flask,python,windows
 # Edit at https://www.gitignore.io/?templates=code,flask,python,windows
 ## 가상환경 ##
-env/
+myenv/
+
+## 세이브 파일 ##
+mydb.db
 
 ## 게임 svae.txt
 save.txt
