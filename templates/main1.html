@@ -1,0 +1,15 @@
+{% extends "layout.html" %} 
+{% block title %}메인 페이지{% endblock %} 
+{% block head %} 
+    {{ super() }} 
+{% endblock %} 
+{% block content %}
+<br>
+    <h3 style="text-align:center;">도라에몽 가위 바위 보</h3> 
+    <div style="text-align: center; position: relative;">
+        <a href="{{ url_for('gamestart') }}" height="5" width="10">
+            <img src="\static\img\도라에몽.jpg" style="width: 400px;height:500px ;">
+        </a>
+        <div style="font-size: 1.8em;font-weight: bold; position: absolute; bottom: 50%;left: 50%;">게임시작</div>  
+    </div>
+    {% endblock %}

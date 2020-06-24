@@ -2,7 +2,8 @@ import sqlite3
 
 def dbcon():
     return sqlite3.connect('mydb.db')
-
+def dbco():
+    return sqlite3.connect('data.db')
 def create_table():
     try:
         query = '''
@@ -16,6 +17,37 @@ def create_table():
         db = dbcon()
         c = db.cursor()
         c.execute(query)
+        db.commit()
+    except Exception as e:
+        print('db error:', e)
+    finally:
+        db.close()
+
+def create_data():
+    try:
+        query = '''
+            CREATE TABLE "gmae" (
+                "num"    int AUTO_INCREMENT,
+                "name"    varchar(50),
+                "data"  char(2),
+                PRIMARY KEY ("num")
+            );
+        '''
+        db = dbco()
+        c = db.cursor()
+        c.execute(query)
+        db.commit()
+    except Exception as e:
+        print('db error:', e)
+    finally:
+        db.close()
+
+def in_data(num,name,data):
+    try:
+        db = dbco()
+        c = db.cursor()
+        setdata = (num,name,data)
+        c.execute("INSERT INTO users VALUES (?,?,?)", setdata)
         db.commit()
     except Exception as e:
         print('db error:', e)

@@ -24,6 +24,7 @@ def join():
     if request.method == "GET":
         return render_template('join.html')
     else:
+        dbdb.create_table()
         id = request.form['id']
         pw = request.form['pw']
         name = request.form['name']
