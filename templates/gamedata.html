@@ -1,0 +1,14 @@
+{% extends "layout.html" %} 
+{% block title %}회원가입 페이지{% endblock %} 
+{% block head %} 
+    {{ super() }} 
+{% endblock %} 
+{% block content %} 
+<br>
+<h2 style="text-align: center;">지난 게임 기록</h2>
+<div style="text-align: center;">
+{% for i in data %}
+게임 결과 : {{ i[0] }}<br>
+{% endfor %}
+<div style="text-align: center;">
+{% endblock %}

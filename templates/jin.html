@@ -4,5 +4,14 @@
     {{ super() }} 
 {% endblock %} 
 {% block content %}
-진구
+<div style="text-align: center; position: relative;">
+        <img src="\static\img\노진구.jpg" style="width: 400px;height:500px ;">
+        <form action="/end" method="POST">
+        <input type="radio" name= "chk" value="가위"> 가위
+        <input type="radio" name= "chk" value="바위"> 바위
+        <input type="radio" name= "chk" value="보"> 보
+        <input type="submit" value="선택">
+        </form>
+</div>
+
 {% endblock %}

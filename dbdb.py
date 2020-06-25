@@ -26,11 +26,9 @@ def create_table():
 def create_data():
     try:
         query = '''
-            CREATE TABLE "gmae" (
-                "num"    int AUTO_INCREMENT,
-                "name"    varchar(50),
-                "data"  char(2),
-                PRIMARY KEY ("num")
+            CREATE TABLE "game" (
+                "num" int auto_increment,
+                "data"  varchar(2)
             );
         '''
         db = dbco()
@@ -42,12 +40,12 @@ def create_data():
     finally:
         db.close()
 
-def in_data(num,name,data):
+def in_data(num,data):
     try:
         db = dbco()
         c = db.cursor()
-        setdata = (num,name,data)
-        c.execute("INSERT INTO users VALUES (?,?,?)", setdata)
+        setdata = (num,data)
+        c.execute("INSERT INTO game VALUES (?,?)", setdata)
         db.commit()
     except Exception as e:
         print('db error:', e)
@@ -65,6 +63,19 @@ def insert_data(id, pw ,name):
         print('db error:', e)
     finally:
         db.close()
+
+def select_data():
+    ret = list()
+    try:
+        db = dbco()
+        c = db.cursor()
+        c.execute('SELECT data FROM game')
+        ret = c.fetchall()
+    except Exception as e:
+        print('db error:', e)
+    finally:
+        db.cursor()
+    return ret
 
 def select_all():
     ret = list()
@@ -107,12 +118,27 @@ def ckeck_id(id):
         db.close()
     return ret
 
+def ckeck_game(name):
+    ret = ()
+    try:
+        db = dbco()
+        c = db.cursor()
+        setdata = (id,)
+        c.execute('SELECT * FROM game WHERE id = name', setdata)
+        ret = c.fetchone()
+    except Exception as e:
+        print('db error:', e)
+    finally:
+        db.close()
+    return ret
 #create_table()
+#create_data()
+#in_data(1,'승리')
 #insert_data('20161047', '1234' ,'김창규')
-#ret = select_all()
+#ret = select_data()
 #ret = select_user('20161047','1234')
 #ret = select_pw('1234')
-#print(ret[2])
+#print(ret)
 
         #query = '''
          #   CREATE TABLE "users" (

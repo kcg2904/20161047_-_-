@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, abort, ses
 from random import *
 import game
 import json
+import os
 
 import dbdb
 
@@ -13,10 +14,46 @@ app.secret_key = b'aaa!111/'
 def index():
     return render_template('main1.html')
 
-@app.route('/hello/<name>')
-def hellovar(name):
-    character = game.character(name)
-    return render_template('gamestart.html', data=character)
+@app.route('/end',methods = ['GET', 'POST'])
+def end():
+    if request.method == 'GET':
+        return redirect(url_for("index"))
+    else :
+        ck = request.form['chk']
+        random = randint(1,3)
+        vs = ""
+        prin = ""
+        if random == 1:
+            vs = "가위" 
+        elif vs == 2:
+            vs = "바위"
+        elif random == 3: 
+            vs = "보"
+        dbdb.create_data()
+        if ck == "보" and vs == "가위":
+            prin = "패배"
+            dbdb.in_data('null','패배')
+        elif ck == "가위" and vs == "보":
+            prin = "승리"
+            dbdb.in_data('null','승리')
+        elif ck == "바위" and vs == "보":
+            prin = "패배"
+            dbdb.in_data('null','패배')
+        elif ck == "보" and vs == "바위":
+            prin = "승리"
+            dbdb.in_data('null','승리')
+        elif ck == "가위" and vs == "바위":
+            prin = "패배"
+            dbdb.in_data('null','패배')
+        elif ck == "바위" and vs == "가위":
+            prin = "승리"
+            dbdb.in_data('null','승리')
+        else :
+            prin = "비김"
+            dbdb.in_data('null','비김')
+
+        
+        return render_template('end.html',data=prin)
 
 #회원가입
 @app.route('/join', methods = ['GET', 'POST'])
@@ -24,6 +61,7 @@ def join():
     if request.method == "GET":
         return render_template('join.html')
     else:
+       
         id = request.form['id']
         pw = request.form['pw']
         name = request.form['name']
@@ -57,7 +95,10 @@ def login():
 # 로그아웃(session제거)
 @app.route('/logout')
 def logout():
+    if os.path.isfile('data.db'):
+         os.remove('data.db')
     session.pop('user', None)
+
     return redirect(url_for('index'))
 
 # 로그인 사용자만 접근 가능으로 만듬
@@ -81,12 +122,21 @@ def gamestart():
         else :
             return render_template('is.html')
     return redirect(url_for('login'))
+
 @app.route('/getinfo')
 def getinfo():
     if 'user' in session:
         ret = dbdb.select_all()
         return render_template('getinfo.html', data=ret)
     return redirect(url_for('login'))
+
+@app.route('/gamedata')
+def gamedata():
+    if 'user' in session:
+        ret = dbdb.select_data()
+        return render_template('gamedata.html', data=ret)
+    return redirect(url_for('login'))
+
 
 @app.errorhandler(404)
 def page_not_found(error):
