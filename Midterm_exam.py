@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, abort, session
 from random import *
-import game
 import json
 import os
 
